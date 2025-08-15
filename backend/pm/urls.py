@@ -18,8 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+
+def graphql_with_options(request, *args, **kwargs):
+    if request.method == "OPTIONS":
+        return HttpResponse(status=204)  # preflight ok
+    return GraphQLView.as_view(graphiql=True)(request, *args, **kwargs)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path("admin/", admin.site.urls),
+    path("graphql", csrf_exempt(graphql_with_options)),
 ]

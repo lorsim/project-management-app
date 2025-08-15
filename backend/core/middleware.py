@@ -4,6 +4,10 @@ from .tenants import get_org_from_request
 class OrganizationContextMiddleware:
     def __init__(self, get_response): self.get_response = get_response
     def __call__(self, request):
+        # Allow CORS preflight to pass
+        if request.method == "OPTIONS":
+            return self.get_response(request)
+        
         if request.path.endswith("/graphql"):
             org = get_org_from_request(request)
             if not org:
