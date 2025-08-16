@@ -20,3 +20,36 @@ python manage.py migrate
 python manage.py shell -c "from core.models import Organization; Organization.objects.get_or_create(slug='acme', defaults={'name':'Acme','contact_email':'ops@acme.test'})"
 python manage.py runserver 0.0.0.0:8000
 ```
+
+### Frontend
+
+```bash
+cd frontend
+npm i
+echo 'VITE_API_URL=http://localhost:8000/graphql' > .env
+npm run dev
+```
+
+### GraphQL
+
+Header: X-Org-Slug: acme
+
+### Queries:
+
+projects(search: String): [Project]
+
+projectTasks(projectId: ID!): [Task]
+
+projectStats(projectId: ID!): JSON
+
+### Mutations:
+
+createProject(name!, description, status, dueDate)
+
+updateProject(id!, name, description, status, dueDate)
+
+createTask(projectId!, title!, description, status, assigneeEmail, dueDate)
+
+updateTaskStatus(id!, status!)
+
+addTaskComment(taskId!, content!, authorEmail!)

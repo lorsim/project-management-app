@@ -12,3 +12,13 @@ export const LIST_PROJECTS = gql`
     }
   }
 `;
+export const TASK_COMMENTS = gql`
+  query TaskComments($taskId: ID!) {
+    taskComments(taskId: $taskId) {
+      id
+      content
+      authorEmail
+      timestamp
+    }
+  }
+`;
