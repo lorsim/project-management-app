@@ -83,3 +83,14 @@ Testing: Frontend unit/integration tests with MSW; snapshot tests for GraphQL op
 Observability: Sentry (api/web), structured logs, basic request timing middleware; DB query counters in logs.
 
 CI/CD: Lint steps, frontend tests, Docker image publishing, deploy job to chosen host.
+
+
+## Screenshots:
+
+### Project listing page
+<img width="1871" height="700" alt="image" src="https://github.com/user-attachments/assets/e7c885ef-fbd9-4ff9-b8fc-98a79dc375c1" />
+
+### Create Project
+<img width="1833" height="1335" alt="image" src="https://github.com/user-attachments/assets/56bfb822-9fb3-49c1-b1de-78cba177f927" />
+
+
