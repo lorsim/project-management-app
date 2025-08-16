@@ -18,6 +18,11 @@ class Project(models.Model):
     due_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self): return self.name
+    class Meta:
+        indexes = [
+            models.Index(fields=["organization", "status"]),
+            models.Index(fields=["due_date"]),
+        ]
 
 class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
@@ -28,6 +33,12 @@ class Task(models.Model):
     due_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self): return self.title
+    class Meta:
+        indexes = [
+            models.Index(fields=["project", "status"]),
+            models.Index(fields=["assignee_email"]),
+            models.Index(fields=["due_date"]),
+        ]    
 
 class TaskComment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="comments")
