@@ -72,3 +72,43 @@ export const UPDATE_PROJECT = gql`
     }
   }
 `;
+
+export const CREATE_TASK = gql`
+  mutation CreateTask(
+    $projectId: ID!
+    $title: String!
+    $description: String
+    $assigneeEmail: String
+    $status: String
+    $dueDate: DateTime
+  ) {
+    createTask(
+      projectId: $projectId
+      title: $title
+      description: $description
+      assigneeEmail: $assigneeEmail
+      status: $status
+      dueDate: $dueDate
+    ) {
+      task {
+        id
+        title
+        description
+        status
+        assigneeEmail
+        dueDate
+      }
+    }
+  }
+`;
+
+export const UPDATE_TASK_STATUS = gql`
+  mutation UpdateTaskStatus($id: ID!, $status: String!) {
+    updateTaskStatus(id: $id, status: $status) {
+      task {
+        id
+        status
+      }
+    }
+  }
+`;
