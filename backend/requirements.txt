@@ -3,3 +3,7 @@ psycopg2-binary==2.9.9
 graphene-django==3.2.2
 django-filter==24.3
 python-dotenv==1.0.1
+
+# Test dependencies
+pytest==8.3.3
+pytest-django==4.8.0
