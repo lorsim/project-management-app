@@ -30,7 +30,46 @@ echo 'VITE_API_URL=http://localhost:8000/graphql' > .env
 npm run dev
 ```
 
-### GraphQL
+## Run with Docker
+
+This repo includes Docker for the full stack:
+
+### Prerequisites
+
+Docker & Docker Compose
+
+From the repo root:
+### 1) Build images
+docker compose build
+
+### 2) Start services
+docker compose up -d
+
+### 3) Run database migrations
+docker compose exec api python manage.py migrate
+
+### 4) Seed a demo organization (required for multi-tenancy)
+docker compose exec api python manage.py shell -c \
+"from core.models import Organization; Organization.objects.get_or_create(slug='acme', defaults={'name':'Acme Inc','contact_email':'ops@acme.test'})"
+
+Now open:
+
+Frontend (UI): http://localhost:5173
+
+GraphQL API: http://localhost:8000/graphql
+
+### Sanity Checks
+
+Test the API from your host machine (note the X-Org-Slug header):
+```bash
+curl -s -H "X-Org-Slug: acme" \
+     -H "Content-Type: application/json" \
+     --data '{"query":"{ projects { id name } }"}' \
+     http://localhost:8000/graphql
+```
+The result should be like this {"data":{"projects":[]}}
+
+## GraphQL
 
 Header: X-Org-Slug: acme
 
