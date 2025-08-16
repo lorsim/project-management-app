@@ -53,3 +53,33 @@ createTask(projectId!, title!, description, status, assigneeEmail, dueDate)
 updateTaskStatus(id!, status!)
 
 addTaskComment(taskId!, content!, authorEmail!)
+
+## Technical Summary
+
+### Decisions & Trade-offs:
+
+GraphQL only (no DRF): Requirements center on GraphQL; omitting REST reduces duplication and maintenance.
+
+Header-based tenancy: Fast to implement and test; acceptable for demo. In production, prefer signed tokens (JWT) with org claim.
+
+Offset pagination: Simpler for both client and server; acceptable for modest datasets.
+
+Assignee by email: Meets UI needs without a full auth system; easy to migrate later to a User FK.
+
+### Future Improvements
+
+Auth & tenancy: JWT with org claim; role-based permissions; audit trail on mutations.
+
+Real-time: Django Channels + Redis; subscriptions for TaskUpdated and CommentAdded.
+
+Pagination: Move to cursor-based; add total counts; expose sort parameters.
+
+Search & filters: Trigram/text search; multi-filter chips; saved views.
+
+A11y: Focus management library or headless UI; keyboard DnD; color-contrast tokens and dark mode.
+
+Testing: Frontend unit/integration tests with MSW; snapshot tests for GraphQL ops; load tests for hot queries.
+
+Observability: Sentry (api/web), structured logs, basic request timing middleware; DB query counters in logs.
+
+CI/CD: Lint steps, frontend tests, Docker image publishing, deploy job to chosen host.
