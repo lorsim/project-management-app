@@ -49,8 +49,17 @@ export default function ProjectForm({
       </button>
 
       {open && (
-        <div className="fixed inset-0 bg-black/40 grid place-items-center" onClick={() => setOpen(false)}>
-          <div className="bg-white rounded-2xl p-6 w-[480px]" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 z-40 bg-black/40 flex items-center justify-center transition-opacity duration-200 opacity-100"
+          onClick={()=>setOpen(false)}
+        >
+          <div
+            className="bg-white rounded-2xl p-6 w-[480px] shadow-lg transform transition duration-200 ease-out
+                      translate-y-1 scale-95 opacity-0
+                      data-[show=true]:translate-y-0 data-[show=true]:scale-100 data-[show=true]:opacity-100"
+            onClick={(e)=>e.stopPropagation()}
+            data-show="true"
+          >
             <h3 className="text-lg font-medium mb-4">{isEdit ? "Edit Project" : "Create Project"}</h3>
             <div className="space-y-3">
               <input className="w-full border p-2 rounded" placeholder="Name *" value={name} onChange={(e)=>setName(e.target.value)} />
